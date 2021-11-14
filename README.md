@@ -28,11 +28,11 @@
 
 ## Upcoming Features
 
-- 친구 추가
-- 친구와의 경쟁
-- 그룹 추가
-- 그룹 추천
+- 친구 추가 및 친구와의 경쟁
+- solved.ac와 연동하여 난이도 정보 및 알고리즘 분류 가져오기
+- 그룹 추가 및 추천
 - 개선된 문제 추천 (사용자 실력 맞춤형)
+- 사용자 맞춤형 모의 코딩 테스트 생성
 
 ## Usages
 
@@ -50,13 +50,15 @@
 
 ## Getting Started
 
-1. Clone
+### 1. Clone
 
 ```
 git clone https://github.com/FacerAin/OSS-Jaksimsamil.git
 ```
 
-2. Install MongoDB(Ubuntu)
+### 2. Install MongoDB
+
+#### 2-1. Ubuntu, WSL
 
 ```
 sudo apt-get update
@@ -64,7 +66,11 @@ sudo apt-get install -y mongodb-org
 sudo service mongod start
 ```
 
-3. Set Serverfile
+#### 2-2. Windows
+
+https://www.mongodb.com/try/download/community 에서 Windows용 mongodb를 다운로드 할 수 있습니다.
+
+### 3. Set Serverfile
 
 ```
 cd Jaksimsamil-server
@@ -75,7 +81,7 @@ MONGO_URL= ###
 JWT_SECRET= ###
 ```
 
-4. Start Node Server
+### 4. Start Node Server
 
 ```
 cd Jaksimsamil-server
@@ -86,10 +92,11 @@ npm start
 [링크](/jaksimsamil-server/README.md)에서 API 제공 목록을 볼 수 있습니다.
 <br>
 
-5. Set Front-end page
+### 5. Set Front-end page
 
 ```
-cd Jaksimsamil-server
+cd ..
+cd Jaksimsamil-page
 sudo npm install
 npm start #Start React
 ```

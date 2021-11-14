@@ -37,9 +37,9 @@ exports.getProfile = async (ctx) => {
 /*
 POST /api/proflie/setprofile
 {
-    username: "username",
-    userBJID: "userBJID",
-    friendList: [String],
+    "username": "username",
+    "userBJID": "userBJID",
+    "friendList": [String],
 }
  */
 exports.setProfile = async (ctx) => {
