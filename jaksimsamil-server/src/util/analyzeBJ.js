@@ -12,15 +12,16 @@ exports.analyzeBJ = function (solvedBJ) {
 
       let solvedBJbyDATE = {};
       for (let i = 0; i < solvedBJ.length; i++) {
-        if (!(solvedBJ[i].solved_date in solvedBJbyDATE)) {
-          solvedBJbyDATE[solvedBJ[i].solved_date] = [];
-          solvedBJbyDATE[solvedBJ[i].solved_date].push(solvedBJ[i]);
+        let solved_date = (solvedBJ[i].solved_date).substr(0, 8);
+        if (!(solved_date in solvedBJbyDATE)) {
+          solvedBJbyDATE[solved_date] = [];
+          solvedBJbyDATE[solved_date].push(solvedBJ[i]);
         } else {
-          solvedBJbyDATE[solvedBJ[i].solved_date].push(solvedBJ[i]);
+          solvedBJbyDATE[solved_date].push(solvedBJ[i]);
         }
       }
 
-      let latestNum = solvedBJbyDATE[solvedBJ[0].solved_date].length;
+      let latestNum = solvedBJbyDATE[solvedBJ[0].solved_date.substr(0, 8)].length;
       let presentNum =
         presentDate_str in solvedBJbyDATE
           ? solvedBJbyDATE[presentDate_str].length

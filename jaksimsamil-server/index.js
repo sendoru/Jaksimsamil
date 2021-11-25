@@ -14,7 +14,8 @@ const router = new Router();
 const accessLogStream = fs.createWriteStream(__dirname + "/access.log", {
   flags: "a",
 });
-require("dotenv").config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 app.use(bodyParser());
 app.use(jwtMiddleware);
 app.use(morgan("combined", { stream: accessLogStream }));
@@ -22,6 +23,8 @@ const { SERVER_PORT, MONGO_URL } = process.env;
 
 router.use("/api", api.routes());
 app.use(router.routes()).use(router.allowedMethods());
+
+console.log(MONGO_URL)
 
 mongoose
   .connect(MONGO_URL, {
