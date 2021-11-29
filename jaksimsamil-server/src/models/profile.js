@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const ProfileSchema = new Schema({
   username: { type: String, required: true, unique: true },
   userBJID: String,
+  userTier: Number,
   solvedBJ: Object,
   solvedBJ_date: Object,
   friendList: [String],
@@ -16,6 +17,9 @@ ProfileSchema.statics.findByUsername = function (username) {
 };
 ProfileSchema.methods.getBJID = function () {
   return this.userBJID;
+};
+ProfileSchema.methods.getuserTier = function () {
+  return this.userTier;
 };
 ProfileSchema.methods.getBJdata = function () {
   return this.solvedBJ;

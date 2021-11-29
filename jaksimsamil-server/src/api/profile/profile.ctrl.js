@@ -1,4 +1,5 @@
 const Profile = require("../../models/profile");
+const request = require('request');
 const mongoose = require("mongoose");
 const getBJ = require("../../util/getBJ");
 const Joi = require("joi");
@@ -97,11 +98,30 @@ exports.syncBJ = async function (ctx) {
       return;
     }
     const BJID = await profile.getBJID();
+    var newUserTier = -1;
+    request.get(
+      {
+        url: "https://solved.ac/api/v3/user/show?handle=" + BJID,
+        json: true
+      }, (error, response, body) => {
+        if (!error && response.statusCode == 200)
+        {
+          console.log(body);
+          newUserTier = body["tier"];
+        }
+        else
+        {
+          console.log(response.statusCode);
+          newUserTier = -1;
+        }
+      }
+    );
+
     let BJdata = await getBJ.getBJ(BJID);
     let BJdata_date = await analyzeBJ.analyzeBJ(BJdata);
     const updateprofile = await Profile.findOneAndUpdate(
       { username: username },
-      { solvedBJ: BJdata, solvedBJ_date: BJdata_date },
+      { userTier: newUserTier, solvedBJ: BJdata, solvedBJ_date: BJdata_date},
       { new: true }
     ).exec();
     ctx.body = updateprofile;
