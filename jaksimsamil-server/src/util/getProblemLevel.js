@@ -1,15 +1,15 @@
 const request = require("request");
 
-exports.getUserTier = async (BJID) => {
+exports.getProblemLevel = async (problemID) => {
   return new Promise( (resolve) => {
     request.get(
       {
-        url: "https://solved.ac/api/v3/user/show?handle=" + BJID,
+        url: "https://solved.ac/api/v3/problem/show?problemId=" + problemID,
         json: true
       }, async (error, response, body) => {
         if (!error && response.statusCode == 200)
         {
-          resolve(body["tier"]);
+          resolve(body["level"]);
         }
         else
         {

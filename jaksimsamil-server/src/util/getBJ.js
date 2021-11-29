@@ -1,6 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const StringToDate = require("./StringToDate");
+const getProblemLevel = require("./getProblemLevel.js");
 /*
 ToDO
 - 예외 처리
@@ -52,13 +53,18 @@ const getData = (html) => {
   let psArr = [];
   const $ = cheerio.load(html.data);
   const $bodyList = $("#status-table > tbody");
-  $bodyList.children().each((index, element) => {
+  $bodyList.children().each(async (index, element) => {
+    var problem_number = $(element).find("a.problem_title").text();
+    var problem_title = $(element).find("a.problem_title").attr("title");
+    var problem_level = await getProblemLevel.getProblemLevel(problem_number);
+    var solved_date = StringToDate.StringToDate_BJ(
+      $(element).find("a.real-time-update").attr("title")
+    );
     psArr.push({
-      problem_number: $(element).find("a.problem_title").text(),
-      problem_title: $(element).find("a.problem_title").attr("title"),
-      solved_date: StringToDate.StringToDate_BJ(
-        $(element).find("a.real-time-update").attr("title")
-      ),
+      problem_number: problem_number,
+      problem_title: problem_title,
+      problem_level: problem_level,
+      solved_date: solved_date
     });
   });
   return psArr;
