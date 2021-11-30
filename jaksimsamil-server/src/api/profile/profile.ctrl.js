@@ -101,7 +101,7 @@ exports.syncBJ = async function (ctx) {
     let newUserTier = await getUserTier.getUserTier(BJID);
 
     let BJdata = await getBJ.getBJ(BJID);
-    let BJdata_date = await analyzeBJ.analyzeBJ(BJdata);
+    let BJdata_date = await analyzeBJ.analyzeBJ(BJdata, BJID, newUserTier);
     const updateprofile = await Profile.findOneAndUpdate(
       { username: username },
       { userTier: newUserTier, solvedBJ: BJdata, solvedBJ_date: BJdata_date},
@@ -113,6 +113,7 @@ exports.syncBJ = async function (ctx) {
   }
 };
 
+// TODO 
 /*
 POST /api/proflie/recommend
 {

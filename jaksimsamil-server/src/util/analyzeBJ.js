@@ -1,7 +1,7 @@
 let moment = require("moment");
-const problem_set = require("../data/problem_set");
-const compareBJ = require("./compareBJ");
-exports.analyzeBJ = function (solvedBJ) {
+const searchProblem = require("./searchProblem")
+
+exports.analyzeBJ = async (solvedBJ, userName, userTier) => {
   try {
     if (solvedBJ) {
       let presentDate = moment();
@@ -47,11 +47,8 @@ exports.analyzeBJ = function (solvedBJ) {
         }
       }
 
-      let unsolved_data = compareBJ.compareBJ(
-        solvedBJ,
-        problem_set.problem_set
-      );
-      let recommend_data = compareBJ.randomItem(unsolved_data);
+      let recommend_problem_id = await searchProblem.searchProblemByTier(userTier - 6, userTier - 1, userName);
+      let recommend_problem = await searchProblem.getProblemInfoById(recommend_problem_id);
 
       let returnOBJ = {
         latestDate: latestDate.format("YYYYMMDD"),
@@ -63,7 +60,7 @@ exports.analyzeBJ = function (solvedBJ) {
         totalNum: totalNUM,
         solvedBJbyDATE: solvedBJbyDATE,
         latestSolve: latestSolve,
-        recommend_data: recommend_data,
+        recommend_data: recommend_problem,
       };
 
       return returnOBJ;

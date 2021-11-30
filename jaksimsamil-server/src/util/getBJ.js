@@ -2,8 +2,11 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const StringToDate = require("./StringToDate");
 const getProblemLevel = require("./getProblemLevel.js");
+
+// solved.ac에서 괜찮은 api를 지원하는데 정작 문제를 푼 시간은 거기서 못 가져와서 백준을 직접 크롤링 해야 된다.
+
 /*
-ToDO
+TODO
 - 예외 처리
 */
 exports.getBJ = async function (userid) {
