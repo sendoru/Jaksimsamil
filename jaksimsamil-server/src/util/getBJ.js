@@ -4,6 +4,8 @@ const StringToDate = require("./StringToDate");
 const getProblemLevel = require("./getProblemLevel.js");
 
 // solved.ac에서 괜찮은 api를 지원하는데 정작 문제를 푼 시간은 거기서 못 가져와서 백준을 직접 크롤링 해야 된다.
+// 그런데 크롤링하는 시간이 정말 심각하게 긴 것 같다.
+// 
 
 /*
 TODO

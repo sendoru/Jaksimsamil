@@ -47,8 +47,13 @@ exports.analyzeBJ = async (solvedBJ, userName, userTier) => {
         }
       }
 
-      let recommend_problem_id = await searchProblem.searchProblemByTier(userTier - 6, userTier - 1, userName);
-      let recommend_problem = await searchProblem.getProblemInfoById(recommend_problem_id);
+      let recommend_problem_id_easy = await searchProblem.searchProblemByTier(userTier - 6, userTier - 5, userName);
+      let recommend_problem_id_normal = await searchProblem.searchProblemByTier(userTier - 4, userTier - 2, userName);
+      let recommend_problem_id_hard = await searchProblem.searchProblemByTier(userTier - 1, userTier, userName);
+      let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
+      let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
+      let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
+      let recommend_problem = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
 
       let returnOBJ = {
         latestDate: latestDate.format("YYYYMMDD"),

@@ -22,19 +22,47 @@ const HomeForm = ({ PSdata, goalNum }) => {
   return PSdata ? (
     <div className={classes.root}>
       <Grid container spacing={5}>
-        <Grid item xs={12}>
+
+        <Grid item xs={4}>
           <Paper className={classes.paper}>
-            <h1>{PSdata.recommend_data.problem_number}</h1>
-            <h1>{PSdata.recommend_data.problem_title}</h1>
+            <h1>{PSdata.recommend_data[0].problem_number}</h1>
+            <h1>{PSdata.recommend_data[0].problem_title}</h1>
             <a
-              href={'http://www.boj.kr/' + PSdata.recommend_data.problem_number}
+              href={'http://www.boj.kr/' + PSdata.recommend_data[0].problem_number}
             >
               바로가기
             </a>
 
-            <h3>오늘의 추천 문제</h3>
+            <h3>오늘의 추천 문제 (Easy)</h3>
           </Paper>
         </Grid>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>
+            <h1>{PSdata.recommend_data[1].problem_number}</h1>
+            <h1>{PSdata.recommend_data[1].problem_title}</h1>
+            <a
+              href={'http://www.boj.kr/' + PSdata.recommend_data[1].problem_number}
+            >
+              바로가기
+            </a>
+
+            <h3>오늘의 추천 문제 (Normal)</h3>
+          </Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>
+            <h1>{PSdata.recommend_data[2].problem_number}</h1>
+            <h1>{PSdata.recommend_data[2].problem_title}</h1>
+            <a
+              href={'http://www.boj.kr/' + PSdata.recommend_data[2].problem_number}
+            >
+              바로가기
+            </a>
+
+            <h3>오늘의 추천 문제 (Hard)</h3>
+          </Paper>
+        </Grid>
+
         <Grid item xs={6}>
           <Paper className={classes.paper}>
             <h1>{PSdata.presentNum + '/' + goalNum}</h1>

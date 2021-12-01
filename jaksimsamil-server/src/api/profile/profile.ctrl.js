@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const getBJ = require("../../util/getBJ");
 const Joi = require("joi");
 const analyzeBJ = require("../../util/analyzeBJ");
-const compareBJ = require("../../util/compareBJ");
-const problem_set = require("../../data/problem_set");
+const searchProblem = require("../../util/searchProblem");
 const getUserTier = require("../../util/getUserTier");
 
 const { ObjectId } = mongoose.Types;
@@ -133,11 +132,13 @@ exports.recommend = async (ctx) => {
       ctx.status = 401;
       return;
     }
-    let unsolved_data = compareBJ.compareBJ(
-      profile.getBJdata(),
-      problem_set.problem_set
-    );
-    ctx.body = compareBJ.randomItem(unsolved_data);
+    let recommend_problem_id_easy = await searchProblem.searchProblemByTier(profile.userTier - 6, profile.userTier - 5, profile.userBJID);
+    let recommend_problem_id_normal = await searchProblem.searchProblemByTier(profile.userTier - 4, profile.userTier - 2, profile.userBJID);
+    let recommend_problem_id_hard = await searchProblem.searchProblemByTier(profile.userTier - 1, profile.userTier, profile.userBJID);
+    let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
+    let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
+    let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
+    ctx.body = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
     //데이터가 비었을 떄 예외처리 필요
   } catch (e) {
     ctx.throw(500, e);
