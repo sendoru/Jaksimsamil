@@ -8,6 +8,10 @@ const categories = [
     text: '홈',
   },
   {
+    name: 'test',
+    text: '모의고사'
+  },
+  {
     name: 'setting',
     text: '설정',
   },
