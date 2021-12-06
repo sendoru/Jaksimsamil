@@ -5,6 +5,18 @@ import Button from './Button';
 import { Link } from 'react-router-dom';
 import Categories from './Categories';
 
+const tierNumToString =
+["Unrated",
+"Bronze V", "Bronze IV", "Bronze III", "Bronze II", "Bronze I",
+"Silver V", "Silver IV", "Silver III", "Silver II", "Silver I",
+"Gold V", "Gold IV", "Gold III", "Gold II", "Gold I",
+"Platinum V", "Platinum IV", "Platinum III", "Platinum II", "Platinum I",
+"Diamond V", "Diamond IV", "Diamond III", "Diamond II", "Diamond I",
+"Ruby V", "Ruby IV", "Ruby III", "Ruby II", "Ruby I",
+"Master"]
+
+const tierColor = ["#111111", "#9b4e00", "#3d556d", "#df9200", "#1dd89b", "#00b4fc", "#ee0027", "#9460f4"]
+
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
@@ -35,8 +47,17 @@ const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
 `;
+const TierInfo = (userTier) => 
+{
+  return styled.div`
+  font-weight: 700;
+  margin-right: 1rem;
+  color: ${tierColor[Math.floor((userTier + 4) / 5)]};
+`;
+};
 
-const Header = ({ user, onLogout, category, onSelect }) => {
+const Header = ({ user, profile, onLogout, category, onSelect }) => {
+  let CurrTierInfo = TierInfo(profile.userTier);
   return (
     <>
       <HeaderBlock>
@@ -47,11 +68,13 @@ const Header = ({ user, onLogout, category, onSelect }) => {
           <Categories
             category={category}
             onSelect={onSelect}
-            className="right"
+            className="left"
           />
           {user ? (
             <div className="right">
-              <UserInfo>{user.username}</UserInfo>
+              <UserInfo>{profile.username}</UserInfo>
+              <CurrTierInfo>{tierNumToString[profile.userTier]}</CurrTierInfo>
+              <CurrTierInfo>{profile.userRating}</CurrTierInfo>
               <Button onClick={onLogout}>로그아웃</Button>
             </div>
           ) : (

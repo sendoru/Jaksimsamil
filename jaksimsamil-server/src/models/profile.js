@@ -5,13 +5,15 @@ const { Schema } = mongoose;
 const ProfileSchema = new Schema({
   username: { type: String, required: true, unique: true },
   userBJID: String,
-  userTier: Number,
   solvedBJ: Object,
   solvedBJ_date: Object,
   friendList: [String],
   slackWebHookURL: String,
   goalNum: Number,
+  userTier: Number,
+  userRating: Number,
 });
+
 ProfileSchema.statics.findByUsername = function (username) {
   return this.findOne({ username });
 };
@@ -20,6 +22,9 @@ ProfileSchema.methods.getBJID = function () {
 };
 ProfileSchema.methods.getuserTier = function () {
   return this.userTier;
+};
+ProfileSchema.methods.getuserRating = function () {
+  return this.userRating;
 };
 ProfileSchema.methods.getBJdata = function () {
   return this.solvedBJ;

@@ -74,6 +74,8 @@ const initialState = {
   slackWebHookURL: '',
   solvedBJ_date: '',
   goalNum: '',
+  userTier: 0,
+  userRating: 0
 };
 const getPROFILESaga = createRequestSaga(GET_PROFILE, profileAPI.getPROFILE);
 const setBJIDSaga = createRequestSaga(SET_BJID, profileAPI.setBJID);
@@ -107,6 +109,8 @@ export default handleActions(
           slackWebHookURL,
           solvedBJ_date,
           goalNum,
+          userTier,
+          userRating,
         },
       },
     ) => ({
@@ -119,6 +123,8 @@ export default handleActions(
       slackWebHookURL: slackWebHookURL,
       solvedBJ_date: solvedBJ_date,
       goalNum: goalNum,
+      userTier: userTier,
+      userRating: userRating
     }),
     [GET_PROFILE_FAILURE]: (state, { payload: error }) => ({
       ...state,

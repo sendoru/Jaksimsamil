@@ -5,6 +5,7 @@ const Joi = require("joi");
 const analyzeBJ = require("../../util/analyzeBJ");
 const searchProblem = require("../../util/searchProblem");
 const getUserTier = require("../../util/getUserTier");
+const getUserRating = require("../../util/getUserRating");
 
 const { ObjectId } = mongoose.Types;
 
@@ -98,12 +99,12 @@ exports.syncBJ = async function (ctx) {
     }
     const BJID = await profile.getBJID();
     let newUserTier = await getUserTier.getUserTier(BJID);
-
+    let newUserRating = await getUserRating.getUserRating(BJID);
     let BJdata = await getBJ.getBJ(BJID);
     let BJdata_date = await analyzeBJ.analyzeBJ(BJdata, BJID, newUserTier);
     const updateprofile = await Profile.findOneAndUpdate(
       { username: username },
-      { userTier: newUserTier, solvedBJ: BJdata, solvedBJ_date: BJdata_date},
+      { userTier: newUserTier, userRating: newUserRating, solvedBJ: BJdata, solvedBJ_date: BJdata_date},
       { new: true }
     ).exec();
     ctx.body = updateprofile;
