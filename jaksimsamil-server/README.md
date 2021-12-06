@@ -46,43 +46,14 @@ POST http://facerain.dcom.club/profile/getprofile
 ### profile
 ```
 {
-    friendList: string Array,
-    username: string,
-    solvedBJ: problem Array,
-    solvedBJ_date: solvedBJ_date,
-    userBJID: string,
-    goalNum: int,
-    userTier: int
-}
-```
-
-### problem
-```
-{
-    problem_number: string,
-    problem_title: string,
-    problem_level: int,
-    solved_date: string
-}
-```
-
-### solvedBJ_date
-```
-{
-    latestDate: string,
-    difflatest: int,
-    latestNum: int,
-    presentNum: int,
-    weekNum: int,
-    monthNum: int,
-    totalNum: int,
-    solvedBJbyDate: 
-    {
-        int: int,
-        int: int,
-        ...
-    },
-    latestSolve: problem,
-    recommend_data: problem Array[3]
+  username: { type: String, required: true, unique: true },
+  userBJID: String,
+  solvedBJ: Object,
+  solvedBJ_date: Object,
+  friendList: [String],
+  slackWebHookURL: String,
+  goalNum: Number,
+  userTier: Number,
+  userRating: Number,
 }
 ```
