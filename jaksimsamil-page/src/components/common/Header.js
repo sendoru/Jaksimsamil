@@ -68,7 +68,7 @@ const Header = ({ user, profile, onLogout, category, onSelect }) => {
           <Categories
             category={category}
             onSelect={onSelect}
-            className="left"
+            className="right"
           />
           {user ? (
             <div className="right">
