@@ -40,3 +40,49 @@ POST http://facerain.dcom.club/profile/getprofile
 | auth    | 로그아웃                               | POST   | api/auth/logout         | [바로가기](/src/api/auth/README.md)    | JWT Token |
 | auth    | 회원가입                               | POST   | api/auth/register       | [바로가기](/src/api/auth/README.md)    | None      |
 | auth    | 로그인 확인                            | GET    | api/auth/check          | [바로가기](/src/api/auth/README.md)    | None      |
+
+## DB Schema
+
+### profile
+```
+{
+    friendList: string Array,
+    username: string,
+    solvedBJ: problem Array,
+    solvedBJ_date: solvedBJ_date,
+    userBJID: string,
+    goalNum: int,
+    userTier: int
+}
+```
+
+### problem
+```
+{
+    problem_number: string,
+    problem_title: string,
+    problem_level: int,
+    solved_date: string
+}
+```
+
+### solvedBJ_date
+```
+{
+    latestDate: string,
+    difflatest: int,
+    latestNum: int,
+    presentNum: int,
+    weekNum: int,
+    monthNum: int,
+    totalNum: int,
+    solvedBJbyDate: 
+    {
+        int: int,
+        int: int,
+        ...
+    },
+    latestSolve: problem,
+    recommend_data: problem Array[3]
+}
+```
