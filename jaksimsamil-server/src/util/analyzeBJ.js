@@ -1,7 +1,7 @@
 let moment = require("moment");
 const searchProblem = require("./searchProblem")
 
-exports.analyzeBJ = async (solvedBJ, userBJID, userTier) => {
+exports.analyzeBJ = async (solvedBJ, userName, userTier) => {
   try {
     if (solvedBJ) {
       let presentDate = moment();
@@ -47,9 +47,9 @@ exports.analyzeBJ = async (solvedBJ, userBJID, userTier) => {
         }
       }
 
-      let recommend_problem_id_easy = await searchProblem.searchProblemByTier(userTier - 6, userTier - 5, userBJID);
-      let recommend_problem_id_normal = await searchProblem.searchProblemByTier(userTier - 4, userTier - 2, userBJID);
-      let recommend_problem_id_hard = await searchProblem.searchProblemByTier(userTier - 1, userTier, userBJID);
+      let recommend_problem_id_easy = await searchProblem.searchProblemByTier(userTier - 6, userTier - 5, userName);
+      let recommend_problem_id_normal = await searchProblem.searchProblemByTier(userTier - 4, userTier - 2, userName);
+      let recommend_problem_id_hard = await searchProblem.searchProblemByTier(userTier - 1, userTier, userName);
       let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
       let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
       let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
