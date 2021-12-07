@@ -92,8 +92,12 @@ const Header = ({ user, profile, onLogout, category, onSelect }) => {
           {user ? (
             <div className="right">
               <UserInfo>{curUser}</UserInfo>
-              <CurTierInfo>{tierNumToString[curTier]}</CurTierInfo>
-              <CurTierInfo>{curRating}</CurTierInfo>
+              { curTier != -1 ? (
+                <><CurTierInfo>{tierNumToString[curTier]}</CurTierInfo><CurTierInfo>{curRating}</CurTierInfo></>
+              ) : (
+                <><CurTierInfo>solved.ac 연동 에러</CurTierInfo></>
+              )
+              }
               <Button onClick={onLogout}>로그아웃</Button>
             </div>
           ) : (

@@ -13,7 +13,7 @@ exports.searchProblemByTier = async (lower_bound, upper_bound, username) =>
   if (upper_bound > 30) upper_bound = 30;
   if (upper_bound < 3) upper_bound = 3;
   return new Promise( (resolve) => {
-    let reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solved%3A100.." + "%20solvable%3Atrue"+ "%20!solved_by%3A" + username + "&sort=random";
+    let reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solved%3A100.." + "%20solvable%3Atrue" + (username ? ("%20!solved_by%3A" + username) : "") + "&sort=random";
     request.get(
       {
         url: reqURL,
@@ -25,7 +25,7 @@ exports.searchProblemByTier = async (lower_bound, upper_bound, username) =>
         }
         else
         {
-          reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solvable%3Atrue" + "%20!solved_by%3A" + username + "&sort=random";
+          reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solvable%3Atrue" + "%20solvable%3Atrue" + (username ? ("%20!solved_by%3A" + username) : "") + "&sort=random";
           request.get(
             {
               url: reqURL,
@@ -46,6 +46,7 @@ exports.searchProblemByTier = async (lower_bound, upper_bound, username) =>
     );
   });
 }
+
 
 exports.getProblemInfoById = async (problemId) => 
 {
