@@ -123,3 +123,8 @@ npm start #Start React
 ## License
 
 - MIT LICENCE
+
+## Contact
+
+- sendol39@gmail.com
+- sendol39@khu.ac.kr
