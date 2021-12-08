@@ -1,8 +1,5 @@
 # Jaksimsamil
 
-![issue badge](https://img.shields.io/github/issues/FacerAin/OSS-Jaksimsamil)
-![fork badge](https://img.shields.io/github/forks/FacerAin/OSS-Jaksimsamil)
-![star badge](https://img.shields.io/github/stars/FacerAin/OSS-Jaksimsamil)
 ![license badge](https://img.shields.io/github/license/FacerAin/OSS-Jaksimsamil)
 
 ## Project Overview
@@ -85,7 +82,7 @@ https://www.mongodb.com/try/download/community 에서 Windows용 mongodb를 다�
 ### 3. Set Serverfile
 
 ```
-cd Jaksimsamil-server
+cd jaksimsamil-server
 touch .env
 ---TYPE THIS IN FILE----
 SERVER_PORT= ###
@@ -96,7 +93,7 @@ JWT_SECRET= ###
 ### 4. Start Node Server
 
 ```
-cd Jaksimsamil-server
+cd jaksimsamil-server
 sudo npm install
 npm start
 ```
@@ -108,7 +105,7 @@ npm start
 
 ```
 cd ..
-cd Jaksimsamil-page
+cd jaksimsamil-page
 sudo npm install
 npm start #Start React
 ```
