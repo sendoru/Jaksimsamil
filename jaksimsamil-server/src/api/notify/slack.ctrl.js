@@ -57,7 +57,7 @@ POST api/notify/slack/recommend
 */
 exports.slackRecommend = async (ctx) => {
   try {
-    console.log("1");
+    console.log("10");
     const { username } = ctx.request.body;
 
     const profile = await Profile.findByUsername(username);
@@ -70,8 +70,8 @@ exports.slackRecommend = async (ctx) => {
       ctx.status = 401;
       return;
     }
-
-    let recommendData = profile.body.solvedBJ_date.recommend_data;
+    console.log(profile);
+    let recommendData = profile.solvedBJ_date.recommend_data;
 
     if (!recommendData) {
       ctx.status = 401;
