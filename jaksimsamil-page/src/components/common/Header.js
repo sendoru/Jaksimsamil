@@ -19,16 +19,18 @@ const tierColor = ["#111111", "#9b4e00", "#3d556d", "#df9200", "#1dd89b", "#00b4
 
 const HeaderBlock = styled.div`
   position: fixed;
+  align-items: center;
   width: 100%;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
 `;
 
 const Wrapper = styled(Responsive)`
   height: 4rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
   .logo {
     font-size: 1.125rem;
     font-weight: 800;
@@ -36,7 +38,8 @@ const Wrapper = styled(Responsive)`
   }
   .right {
     display: flex;
-    align-items: center;
+    align-items: right;
+    
   }
 `;
 
@@ -47,6 +50,7 @@ const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
 `;
+
 const TierInfo = (userTier) => 
 {
   return styled.div`
@@ -56,8 +60,22 @@ const TierInfo = (userTier) =>
 `;
 };
 
+var curTier = 0, curRating = 0, curUser = "", CurTierInfo = TierInfo(curTier);
+
 const Header = ({ user, profile, onLogout, category, onSelect }) => {
-  let CurrTierInfo = TierInfo(profile.userTier);
+  if (curUser !== profile.username)
+  {
+    curUser = profile.username;
+  }
+  if (curTier !== profile.userTier)
+  {
+    curTier = profile.userTier;
+    CurTierInfo = TierInfo(curTier);
+  }
+  if (curRating !== profile.userRating)
+  {
+    curRating = profile.userRating;
+  }
   return (
     <>
       <HeaderBlock>
@@ -70,11 +88,16 @@ const Header = ({ user, profile, onLogout, category, onSelect }) => {
             onSelect={onSelect}
             className="right"
           />
+
           {user ? (
             <div className="right">
-              <UserInfo>{profile.username}</UserInfo>
-              <CurrTierInfo>{tierNumToString[profile.userTier]}</CurrTierInfo>
-              <CurrTierInfo>{profile.userRating}</CurrTierInfo>
+              <UserInfo>{curUser}</UserInfo>
+              { curTier != -1 ? (
+                <><CurTierInfo>{tierNumToString[curTier]}</CurTierInfo><CurTierInfo>{curRating}</CurTierInfo></>
+              ) : (
+                <><CurTierInfo>solved.ac 연동 에러</CurTierInfo></>
+              )
+              }
               <Button onClick={onLogout}>로그아웃</Button>
             </div>
           ) : (
@@ -82,10 +105,11 @@ const Header = ({ user, profile, onLogout, category, onSelect }) => {
               <Button to="/login">로그인</Button>
             </div>
           )}
+
         </Wrapper>
       </HeaderBlock>
       <Spacer />
-    </>
+    </ >
   );
 };
 

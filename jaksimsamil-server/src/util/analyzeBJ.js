@@ -1,7 +1,7 @@
 let moment = require("moment");
 const searchProblem = require("./searchProblem")
 
-exports.analyzeBJ = async (solvedBJ, userBJID, userTier) => {
+exports.analyzeBJ = async (solvedBJ, userName, userTier) => {
   try {
     if (solvedBJ) {
       let presentDate = moment();
@@ -46,14 +46,21 @@ exports.analyzeBJ = async (solvedBJ, userBJID, userTier) => {
           totalNUM++;
         }
       }
-
-      let recommend_problem_id_easy = await searchProblem.searchProblemByTier(userTier - 6, userTier - 5, userBJID);
-      let recommend_problem_id_normal = await searchProblem.searchProblemByTier(userTier - 4, userTier - 2, userBJID);
-      let recommend_problem_id_hard = await searchProblem.searchProblemByTier(userTier - 1, userTier, userBJID);
-      let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
-      let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
-      let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
-      let recommend_problem = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
+      let recommend_problem = [undefined, undefined, undefined];
+      let solvedacError = 0;
+      if (userTier == -1)
+      {
+        solvedacError = 1;
+      }
+      {
+        let recommend_problem_id_easy = await searchProblem.searchProblemByTier(userTier - 6 + solvedacError * 6, userTier - 5 + solvedacError * 6, (userTier != -1) ? userName : false);
+        let recommend_problem_id_normal = await searchProblem.searchProblemByTier(userTier - 4 + solvedacError * 6, userTier - 2 + solvedacError * 6, (userTier != -1) ? userName : false);
+        let recommend_problem_id_hard = await searchProblem.searchProblemByTier(userTier - 1 + solvedacError * 6, userTier + solvedacError * 6, (userTier != -1) ? userName : false);
+        let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
+        let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
+        let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
+        recommend_problem = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
+      }
 
       let returnOBJ = {
         latestDate: latestDate.format("YYYYMMDD"),

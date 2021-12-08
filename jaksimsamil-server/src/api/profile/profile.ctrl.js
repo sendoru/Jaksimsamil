@@ -133,13 +133,21 @@ exports.recommend = async (ctx) => {
       ctx.status = 401;
       return;
     }
-    let recommend_problem_id_easy = await searchProblem.searchProblemByTier(profile.userTier - 6, profile.userTier - 5, profile.userBJID);
-    let recommend_problem_id_normal = await searchProblem.searchProblemByTier(profile.userTier - 4, profile.userTier - 2, profile.userBJID);
-    let recommend_problem_id_hard = await searchProblem.searchProblemByTier(profile.userTier - 1, profile.userTier, profile.userBJID);
-    let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
-    let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
-    let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
-    ctx.body = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
+    let userTier = profile.userTier;
+    let solvedacError = 0;
+    if (userTier == -1)
+    {
+      solvedacError = 1;
+    }
+    {
+      let recommend_problem_id_easy = await searchProblem.searchProblemByTier(userTier - 6 + solvedacError * 6, userTier - 5 + solvedacError * 6, (userTier != -1) ? profile.userBJID : false);
+      let recommend_problem_id_normal = await searchProblem.searchProblemByTier(userTier - 4 + solvedacError * 6, userTier - 2 + solvedacError * 6, (userTier != -1) ? profile.userBJID : false);
+      let recommend_problem_id_hard = await searchProblem.searchProblemByTier(userTier - 1 + solvedacError * 6, userTier + solvedacError * 6, (userTier != -1) ? profile.userBJID : false);
+      let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
+      let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
+      let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
+      ctx.body = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
+    }
     //데이터가 비었을 떄 예외처리 필요
   } catch (e) {
     ctx.throw(500, e);

@@ -1,6 +1,5 @@
 const Profile = require("../../models/profile");
 const sendSlack = require("../../util/sendSlack");
-const searchProblem = require("../../util/searchProblem");
 /*
 POST api/notify/slack/goal
 {
@@ -71,13 +70,8 @@ exports.slackRecommend = async (ctx) => {
       ctx.status = 401;
       return;
     }
-    let recommend_problem_id_easy = await searchProblem.searchProblemByTier(profile.userTier - 6, profile.userTier - 5, profile.userBJID);
-    let recommend_problem_id_normal = await searchProblem.searchProblemByTier(profile.userTier - 4, profile.userTier - 2, profile.userBJID);
-    let recommend_problem_id_hard = await searchProblem.searchProblemByTier(profile.userTier - 1, profile.userTier, profile.userBJID);
-    let recommend_problem_easy = await searchProblem.getProblemInfoById(recommend_problem_id_easy);
-    let recommend_problem_normal = await searchProblem.getProblemInfoById(recommend_problem_id_normal);
-    let recommend_problem_hard = await searchProblem.getProblemInfoById(recommend_problem_id_hard);
-    let recommendData = [recommend_problem_easy, recommend_problem_normal, recommend_problem_hard];
+
+    let recommendData = profile.body.solvedBJ_date.recommend_data;
 
     if (!recommendData) {
       ctx.status = 401;
