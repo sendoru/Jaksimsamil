@@ -7,6 +7,7 @@ const ProfileSchema = new Schema({
   userBJID: String,
   solvedBJ: Object,
   solvedBJ_date: Object,
+  testInfo: Object,
   friendList: [String],
   slackWebHookURL: String,
   goalNum: Number,
@@ -40,7 +41,9 @@ ProfileSchema.methods.getTodaySovled = function () {
     return this.solvedBJ_date.presentNum;
   }
 };
-
+ProfileSchema.methods.getTestInfo = function () {
+  return this.testInfo;
+};
 ProfileSchema.methods.serialize = function () {
   const data = this.toJSON();
   return data;

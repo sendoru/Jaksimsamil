@@ -7,13 +7,13 @@ const problemTier = ["x", "b5", "b4", "b3", "b2", "b1",
                           "d5", "d4", "d3", "d2", "d1",
                           "r5", "r4", "r3", "r2", "r1"];
 
-exports.searchProblemByTier = async (lower_bound, upper_bound, username) =>
+exports.searchProblemByTier = async (lower_bound, upper_bound, userBJID) =>
 {
   if (lower_bound < 1) lower_bound = 1;
   if (upper_bound > 30) upper_bound = 30;
   if (upper_bound < 3) upper_bound = 3;
   return new Promise( (resolve) => {
-    let reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solved%3A100.." + "%20solvable%3Atrue" + (username ? ("%20!solved_by%3A" + username) : "") + "&sort=random";
+    let reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solved%3A100.." + "%20solvable%3Atrue" + (userBJID ? ("%20!solved_by%3A" + userBJID) : "") + "&sort=random";
     request.get(
       {
         url: reqURL,
@@ -25,7 +25,7 @@ exports.searchProblemByTier = async (lower_bound, upper_bound, username) =>
         }
         else
         {
-          reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solvable%3Atrue" + "%20solvable%3Atrue" + (username ? ("%20!solved_by%3A" + username) : "") + "&sort=random";
+          reqURL = "https://solved.ac/api/v3/search/problem?query=tier%3A" + problemTier[lower_bound] + ".." + problemTier[upper_bound] + "%20solvable%3Atrue" + "%20solvable%3Atrue" + (userBJID ? ("%20!solved_by%3A" + userBJID) : "") + "&sort=random";
           request.get(
             {
               url: reqURL,
@@ -93,6 +93,28 @@ exports.getProblemInfoById = async (problemId) =>
               }
             }
           );
+        }
+      }
+    );
+  });
+}
+
+exports.isSolvedBy = async (problemID, userBJID) =>
+{
+  return new Promise( (resolve) => {
+    let reqURL = "https://solved.ac/api/v3/search/problem?query=" + problemID + "%20solvable%3Atrue" + (userBJID ? ("%20!solved_by%3A" + userBJID) : "");
+    request.get(
+      {
+        url: reqURL,
+        json: true
+      }, async (error, response, body) => {
+        if (!error && response.statusCode == 200)
+        {
+          resolve(body["count"] != 0);
+        }
+        else
+        {
+          resolve(false);
         }
       }
     );
