@@ -18,21 +18,33 @@
 
 ![그림2](https://user-images.githubusercontent.com/16442978/85690058-2536e080-b70e-11ea-98cd-45fdf04084ce.png)
 
-## Features (ver.1.0.0)
+## Features
 
+#### ver 1.0.0
 - 회원가입/로그인 제공
 - Online Judge 연동 가능 (Baekjoon)
 - 나의 학습 현황 한눈에 보기
 - 추천 문제 제공
 - Slack 알리미
 
+#### ver 1.1.0 (2021.12.09)
+- solved.ac 연동 기능
+- 나의 현재 실력 보기
+- 사용자 실력 맞춤형 문제 추천
+- 실전형 코딩 테스트 모의고사 제공
+
 ## Upcoming Features
 
-- 친구 추가 및 친구와의 경쟁
-- solved.ac와 연동하여 난이도 정보 및 알고리즘 분류 가져오기
-- 그룹 추가 및 추천
-- 개선된 문제 추천 (사용자 실력 맞춤형)
-- 사용자 맞춤형 모의 코딩 테스트 생성
+#### 기능 측면
+- 개선된 코딩 테스트 모의고사 (ICPC 및 Codeforces 스타일 점수 책정)
+- 사용자의 강점/단점을 분석해 알고리즘 분류 별 문제 추천
+- 친구 추가 및 친구와의 경쟁 (코딩 테스트 모의고사와 연동)
+- 더욱 편리한 Slack 연동 및 타 메신저 지원
+- 비밀번호 변경 등 미구현된 계정 관리 기능 추가
+
+#### UI/UX 측면
+- 다크 모드 지원
+- 개선된 반응형 웹 디자인 (모바일 지원)
 
 ## Usages
 
@@ -44,8 +56,8 @@
 
 #### 설정
 
-1. 백준 아이디를 등록하고 동기화하세요. [상세]()
-2. 슬랙 HOOK URL을 등록하세요. [상세]()
+1. 백준 아이디를 등록하고 동기화하세요.
+2. 슬랙 HOOK URL을 등록하세요.
 3. 일일 목표량을 등록하세요.
 
 ## Getting Started
@@ -53,7 +65,7 @@
 ### 1. Clone
 
 ```
-git clone https://github.com/FacerAin/OSS-Jaksimsamil.git
+git clone http://khuhub.khu.ac.kr/2019103980/Jaksimsamil.git
 ```
 
 ### 2. Install MongoDB
@@ -89,7 +101,7 @@ sudo npm install
 npm start
 ```
 
-[링크](/jaksimsamil-server/README.md)에서 API 제공 목록을 볼 수 있습니다.
+[링크](/jaksimsamil-server/README.md)에서 API 제공 목록 및 DB Schema를 볼 수 있습니다.
 <br>
 
 ### 5. Set Front-end page
