@@ -5,8 +5,9 @@ profile.post("/solved:id");
 profile.get("/solvednum:id");
 profile.post("/recommend", profileCtrl.recommend);
 profile.patch("/syncBJ", profileCtrl.syncBJ);
-profile.patch("/initTest", profileCtrl.initTest);
-profile.patch("/updateTestInfo", profileCtrl.updateTestInfo)
+profile.patch("/inittest", profileCtrl.initTest);
+profile.patch("/updatetest", profileCtrl.updateTest);
+profile.patch("/giveuptest", profileCtrl.giveupTest);
 profile.post("/setprofile", profileCtrl.setProfile);
 profile.post("/getprofile", profileCtrl.getProfile);
 module.exports = profile;

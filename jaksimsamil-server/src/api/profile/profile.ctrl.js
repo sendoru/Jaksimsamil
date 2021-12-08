@@ -60,13 +60,21 @@ exports.setProfile = async (ctx) => {
   }
 
   try {
-    const profile = await Profile.findOneAndUpdate(
+    let profile = await Profile.findOneAndUpdate(
       { username: ctx.request.body.username },
       ctx.request.body,
       {
         new: true,
       }
     ).exec();
+
+    if (!profile.testInfo) {
+      profile = await Profile.findOneAndUpdate(
+        { username: ctx.request.body.username },
+        { testInfo: {div: 4, inProgress: false}},
+        { new: true }
+      ).exec();
+    }
 
     if (!profile) {
       ctx.status = 404;
@@ -114,7 +122,7 @@ exports.syncBJ = async function (ctx) {
 };
 
 /*
-PATCH /api/proflie/initTest
+PATCH /api/proflie/inittest
 {
     username: 'userid',
     div: Number
@@ -139,7 +147,7 @@ exports.initTest = async function (ctx) {
     const newTestInfo = await getTestInfo.makeInitTestInfo(div, BJID)
     const updateprofile = await Profile.findOneAndUpdate(
       { username: username },
-      { testInfo: newTestInfo},
+      { testInfo: newTestInfo },
       { new: true }
     ).exec();
     ctx.body = updateprofile;
@@ -148,12 +156,12 @@ exports.initTest = async function (ctx) {
   }
 };
 /*
-PATCH /api/proflie/updateTestInfo
+PATCH /api/proflie/updatetest
 {
     username: 'userid',
 }
  */
-exports.updateTestInfo = async function (ctx) {
+exports.updateTest = async function (ctx) {
   const username = ctx.request.body.username;
 
   if (!username) {
@@ -169,7 +177,39 @@ exports.updateTestInfo = async function (ctx) {
     }
     const BJID = await profile.getBJID();
     let testInfo = profile.getTestInfo();
-    await getTestInfo.updateTestInfo(BJID, testInfo);
+    testInfo = await getTestInfo.updateTestInfo(BJID, testInfo);
+    const updateprofile = await Profile.findOneAndUpdate(
+      { username: username },
+      { testInfo: testInfo },
+      { new: true }
+    ).exec();
+    ctx.body = updateprofile;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+/*
+PATCH /api/proflie/giveuptest
+{
+    username: 'userid',
+}
+ */
+exports.giveupTest = async function (ctx) {
+  const username = ctx.request.body.username;
+
+  if (!username) {
+    ctx.status = 401;
+    return;
+  }
+
+  try {
+    const profile = await Profile.findByUsername(username);
+    if (!profile) {
+      ctx.status = 401;
+      return;
+    }
+    let testInfo = profile.getTestInfo();
+    testInfo = await getTestInfo.giveupTest(testInfo);
     const updateprofile = await Profile.findOneAndUpdate(
       { username: username },
       { testInfo: testInfo },

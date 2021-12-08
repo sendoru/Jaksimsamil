@@ -12,3 +12,12 @@ export const getPROFILE = ({ username }) =>
 
 export const syncBJ = ({ username }) =>
   client.patch('api/profile/syncBJ', { username });
+
+export const initTest = ({ username , div }) =>
+  client.patch('api/profile/inittest', { username, div });
+
+export const updateTest = ({ username }) =>
+  client.patch('api/profile/updatetest', { username });
+
+export const giveupTest = ({ username }) =>
+  client.patch('api/profile/giveuptest', { username });

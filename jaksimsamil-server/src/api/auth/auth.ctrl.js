@@ -32,7 +32,20 @@ exports.register = async (ctx) => {
       username,
     });
     const user = new User({
-      username,
+      username: username,
+      userBJID: '',
+      solvedBJ: null,
+      friendList: [],
+      profileError: null,
+      slackWebHookURL: '',
+      solvedBJ_date: null,
+      goalNum: 0,
+      userTier: -1,
+      userRating: -1,
+      testInfo: {
+        inProgress: false,
+        div: 4,
+      }
     });
     await user.setPassword(password);
     await profile.save();

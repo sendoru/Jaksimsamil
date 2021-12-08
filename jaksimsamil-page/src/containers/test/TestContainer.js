@@ -1,15 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TestForm from '../../components/test/TestForm';
-import { getPROFILE, initializeProfile } from '../../modules/profile';
+import { changeInnerField, getPROFILE, initializeProfile, initTest, updateTest, giveupTest } from '../../modules/profile';
 
 const TestContainer = ({ history }) => {
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { user, profile } = useSelector(({ user, profile }) => ({
+  const { user, profile, loading } = useSelector(({ user, profile, loading }) => ({
     user: user.user,
     profile: profile,
+    loading: loading
   }));
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    dispatch(
+      changeInnerField({
+        outerKey: name.split('.')[0],
+        innerKey: name.split('.')[1],
+        value: value,
+      }),
+    );
+  };
+
+  const onInitTest = (e) => {
+    e.preventDefault();
+    let username = profile.username;
+    let div = profile.testInfo.div;
+    dispatch(initTest({ username, div }));
+  };
+
+  const onUpdateTest = (e) => {
+    e.preventDefault();
+    let username = profile.username;
+    dispatch(updateTest({ username }));
+  };
+
+  const onGiveupTest = (e) => {
+    e.preventDefault();
+    let username = profile.username;
+    dispatch(giveupTest({ username }));
+  };
 
   useEffect(() => {
     if (!user) {
@@ -24,14 +56,17 @@ const TestContainer = ({ history }) => {
     }
   }, [dispatch, user, history]);
   useEffect(() => {
-    console.log(profile);
-  }, [profile]);
-  useEffect(() => {
-    if (user) {
-      let username = user.username;
-      dispatch(getPROFILE({ username }));
+
+    if (loading['profile/INIT_TEST'] == true || loading['profile/UPDATE_TEST'] == true || loading['profile/GIVEUP_TEST'] == true) {
+      setLoading(true);
+    } else {
+      setLoading(false);
     }
-  }, [dispatch, user]);
-  return <TestForm />;
+  }, [dispatch, loading]);
+  console.log(profile);
+  return <div>
+    <TestForm type="setting" profile={profile} onChange={onChange} onInitTest={onInitTest} onUpdateTest={onUpdateTest} onGiveupTest={onGiveupTest} isLoading={isLoading}/>
+  </div>
+  ;
 };
 export default withRouter(TestContainer);

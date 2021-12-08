@@ -102,7 +102,7 @@ exports.getProblemInfoById = async (problemId) =>
 exports.isSolvedBy = async (problemID, userBJID) =>
 {
   return new Promise( (resolve) => {
-    let reqURL = "https://solved.ac/api/v3/search/problem?query=" + problemID + "%20solvable%3Atrue" + (userBJID ? ("%20!solved_by%3A" + userBJID) : "");
+    let reqURL = "https://solved.ac/api/v3/search/problem?query=id%3A" + problemID + "%20solvable%3Atrue" + (userBJID ? ("%20solved_by%3A" + userBJID) : "");
     request.get(
       {
         url: reqURL,

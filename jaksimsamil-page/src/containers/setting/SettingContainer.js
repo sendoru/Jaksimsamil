@@ -81,7 +81,8 @@ const SettingContainer = ({ history }) => {
       setLoading(false);
     }
   }, [dispatch, loading]);
-
+  console.log("세팅창 띄울 준비 완료");
+  console.log(profile);
   return (
     <div>
       <SettingForm

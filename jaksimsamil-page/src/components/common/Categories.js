@@ -9,7 +9,7 @@ const categories = [
   },
   {
     name: 'test',
-    text: '모의고사'
+    text: '모의고사 (Beta)'
   },
   {
     name: 'setting',
