@@ -18,7 +18,7 @@ node index.js
 ## Example
 
 ```
-POST http://facerain.dcom.club/profile/getprofile
+POST {your_url}/api/profile/getprofile
 {
     username: 'syw5141',
 }
@@ -96,7 +96,7 @@ POST http://facerain.dcom.club/profile/getprofile
 | profile | 유저가 푼 문제 조회(백준)              | GET    | api/profile/solvedBJ:id | None      |
 | profile | 유저가 푼 문제 동기화(백준)            | PATCH  | api/profile/syncBJ      | None      |
 | profile | 유저의 코딩 테스트 모의고사 시작       | PATCH  | api/profile/inittest    | None      |
-| profile | 유저의 코딩 테스트 모의고사 상테 업데이트 | PATCH  | api/profile/updatetest | None      |
+| profile | 유저의 코딩 테스트 모의고사 상태 업데이트 | PATCH  | api/profile/updatetest | None      |
 | profile | 유저의 코딩 테스트 모의고사 종료        | PATCH  | api/profile/giveuptest   | None      |
 | profile | 유저 정보 수정                         | POST   | api/profile/setprofile  | JWT TOKEN |
 | profile | 유저 정보 받아오기                     | POST   | api/profile/getprofile  | JWT       |
