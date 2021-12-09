@@ -11,9 +11,9 @@
 > > 알고리즘 문제 풀이 스터디를 꾸준히 할 수 있게 돕는 웹 서비스입니다.
 > > <br> [링크](http://facerain.dcom.club)에서 직접 사용해 보세요!
 
-![그림1](https://user-images.githubusercontent.com/16442978/85690047-236d1d00-b70e-11ea-8d2b-480593c0daf3.png)
+![그림1](https://i.imgur.com/gwX8n0U.png)
 
-![그림2](https://user-images.githubusercontent.com/16442978/85690058-2536e080-b70e-11ea-98cd-45fdf04084ce.png)
+![그림2](https://i.imgur.com/EhgBOCS.png)
 
 ## Features
 
